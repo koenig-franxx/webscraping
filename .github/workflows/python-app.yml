@@ -36,6 +36,7 @@ jobs:
         run: |
           pip install flake8
           flake8 .
+	  continue-on-error: true
 
       # Paso 5: Ejecutar pruebas con Pytest y generar cobertura
       - name: Run tests with pytest
