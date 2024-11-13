@@ -31,7 +31,7 @@ jobs:
 
       - name: Run tests with pytest
         run: |
-          pytest --cov=script --maxfail=1 --disable-warnings -q
+          pytest --cov=test_scraping.py --maxfail=1 --disable-warnings -q
 
       - name: Upload coverage report
         if: success()
