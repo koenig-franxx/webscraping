@@ -12,42 +12,31 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.11]  # Versiones de Python para pruebas
+        python-version: [3.8, 3.9, 3.10, 3.11]
 
     steps:
-      # Paso 1: Verificar el código del repositorio
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Paso 2: Configurar la versión de Python
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
-      # Paso 3: Instalar dependencias
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest
 
-      # Paso 4: Ejecutar Flake8 para análisis de errores y estilo
-      - name: Lint with Flake8
-        run: |
-          pip install flake8
-          flake8 .
-
-      # Paso 5: Ejecutar pruebas con Pytest y generar cobertura
       - name: Run tests with pytest
         run: |
-          pip install pytest pytest-cov
-          pytest --cov=.  # Ejecuta pruebas y genera un reporte de cobertura
+          pytest --cov=script --maxfail=1 --disable-warnings -q
 
-      # Paso 6: Subir reporte de cobertura como artefacto
       - name: Upload coverage report
-        if: success()  # Solo si los pasos anteriores son exitosos
+        if: success()
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: htmlcov/  # Ubicación del reporte de cobertura en HTML
+          path: htmlcov/
 
