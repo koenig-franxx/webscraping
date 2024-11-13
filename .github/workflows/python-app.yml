@@ -17,11 +17,11 @@ jobs:
     steps:
       # Paso 1: Verificar el código del repositorio
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # Paso 2: Configurar la versión de Python
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -45,8 +45,8 @@ jobs:
 
       # Paso 6: Generar un reporte de cobertura de código
       - name: Upload coverage report
+        if: success()
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
           path: htmlcov/
-
