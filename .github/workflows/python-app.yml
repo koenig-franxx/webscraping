@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.10, 3.11]  # Asegúrate de no incluir '3.1'
+        python-version: [3.8, 3.9, 3.10, 3.11]
 
     steps:
       # Paso 1: Verificar el código del repositorio
@@ -50,3 +50,4 @@ jobs:
         with:
           name: coverage-report
           path: htmlcov/
+
