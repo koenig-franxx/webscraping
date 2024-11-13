@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.8, 3.9, 3.11]
+        python-version: [3.8, 3.9, 3.11]  # Versiones de Python para pruebas
 
     steps:
       # Paso 1: Verificar el código del repositorio
@@ -41,13 +41,13 @@ jobs:
       - name: Run tests with pytest
         run: |
           pip install pytest pytest-cov
-          pytest --cov=.
+          pytest --cov=.  # Ejecuta pruebas y genera un reporte de cobertura
 
-      # Paso 6: Generar un reporte de cobertura de código
+      # Paso 6: Subir reporte de cobertura como artefacto
       - name: Upload coverage report
-        if: success()
+        if: success()  # Solo si los pasos anteriores son exitosos
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: htmlcov/
+          path: htmlcov/  # Ubicación del reporte de cobertura en HTML
 
