@@ -1,23 +1,28 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = 'https://dockerlabs.es'
-respuesta = requests.get(url)
+def obtener_maquinas(url):
+    """Obtiene las máquinas desde el HTML de la página indicada"""
+    respuesta = requests.get(url)
 
-if respuesta.status_code == 200:
-    soup = BeautifulSoup(respuesta.text, 'html.parser')
+    if respuesta.status_code == 200:
+        soup = BeautifulSoup(respuesta.text, 'html.parser')
 
-    maquinas = soup.find_all('div', onclick=True)
-    conteo_maquinas = 1
+        maquinas = soup.find_all('div', onclick=True)
+        maquinas_info = []
 
-    for maquina in maquinas:
-        onclick_text = maquina['onclick']
-        nombre = onclick_text.split("'")[1]
-        dificultad = onclick_text.split("'")[3]
-        autor = onclick_text.split("'")[7]
+        for maquina in maquinas:
+            onclick_text = maquina['onclick']
+            nombre = onclick_text.split("'")[1]
+            dificultad = onclick_text.split("'")[3]
+            autor = onclick_text.split("'")[7]
+            maquinas_info.append((nombre, dificultad, autor))
 
-        print(f"{nombre} --> {dificultad} --> {autor}")
+        return maquinas_info
+    else:
+        raise Exception(f"Error al realizar la petición: {respuesta.status_code}")
 
-    print(f"Número de maquinas encontradas: {conteo_maquinas}")
-else:
-    print(f'Error al realizar la peticion {respuesta.status_code}')
+def contar_maquinas(maquinas_info):
+    """Cuenta la cantidad de máquinas encontradas"""
+    return len(maquinas_info)
+
