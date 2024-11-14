@@ -1,0 +1,26 @@
+name: Run Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-cov  # Asegúrate de instalar pytest y pytest-cov aquí
+          # Agrega cualquier otra dependencia necesaria aquí, como las dependencias de test_scraping
+
+      - name: Run tests with coverage
+        run: pytest --cov=test_scraping --maxfail=1 --disable-warnings -q
+
