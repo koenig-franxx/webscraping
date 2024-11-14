@@ -36,4 +36,3 @@ def test_contar_maquinas():
         ('Machine2', 'medium', 'author2')
     ]
     assert contar_maquinas(maquinas_info) == 2
-

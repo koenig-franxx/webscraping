@@ -13,10 +13,18 @@ def obtener_maquinas(url):
 
         for maquina in maquinas:
             onclick_text = maquina['onclick']
-            nombre = onclick_text.split("'")[1]
-            dificultad = onclick_text.split("'")[3]
-            autor = onclick_text.split("'")[7]
-            maquinas_info.append((nombre, dificultad, autor))
+            parts = onclick_text.split("'")
+            
+            # Verifica que hay suficientes partes antes de acceder a índices específicos
+            if len(parts) > 7:
+                nombre = parts[1]
+                dificultad = parts[3]
+                autor = parts[7]
+                maquinas_info.append((nombre, dificultad, autor))
+            else:
+                # Si el formato es inesperado, agrega una máquina con valores 'desconocidos' o ignora
+                print("Advertencia: formato inesperado en el atributo 'onclick'")
+                maquinas_info.append(("Desconocido", "Desconocido", "Desconocido"))
 
         return maquinas_info
     else:
