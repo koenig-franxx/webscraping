@@ -3,7 +3,7 @@ import pytest
 from unittest.mock import patch
 from script import obtener_maquinas
 
-# Define la respuesta simulada con el formato correcto en 'onclick'
+# Define la respuesta simulada con el formato esperado en 'onclick'
 mock_respuesta = {
     "status_code": 200,
     "text": """

@@ -1,3 +1,4 @@
+# script.py
 import requests
 from bs4 import BeautifulSoup
 
@@ -7,23 +8,19 @@ def obtener_maquinas(url):
 
     if respuesta.status_code == 200:
         soup = BeautifulSoup(respuesta.text, 'html.parser')
-
         maquinas = soup.find_all('div', onclick=True)
         maquinas_info = []
 
         for maquina in maquinas:
             onclick_text = maquina['onclick']
-            parts = onclick_text.split("'")
+            onclick_parts = onclick_text.split("'")
             
-            # Verifica que hay suficientes partes antes de acceder a índices específicos
-            if len(parts) >= 8:
-                nombre = parts[1]
-                dificultad = parts[3]
-                autor = parts[7]
-                maquinas_info.append((nombre, dificultad, autor))
-            else:
-                print("Advertencia: formato inesperado en el atributo 'onclick'")
-                maquinas_info.append(("Desconocido", "Desconocido", "Desconocido"))
+            # Verificar que el tamaño de la lista es suficiente
+            nombre = onclick_parts[1] if len(onclick_parts) > 1 else 'Desconocido'
+            dificultad = onclick_parts[3] if len(onclick_parts) > 3 else 'Desconocido'
+            autor = onclick_parts[7] if len(onclick_parts) > 7 else 'Desconocido'
+
+            maquinas_info.append((nombre, dificultad, autor))
 
         return maquinas_info
     else:
