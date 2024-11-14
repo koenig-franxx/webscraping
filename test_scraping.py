@@ -9,8 +9,8 @@ mock_respuesta = {
     "text": """
         <html>
             <body>
-                <div onclick="onclick('Machine1', 'hard', 'irrelevant', 'irrelevant', 'irrelevant', 'irrelevant', 'irrelevant', 'author1')">Machine1</div>
-                <div onclick="onclick('Machine2', 'medium', 'irrelevant', 'irrelevant', 'irrelevant', 'irrelevant', 'irrelevant', 'author2')">Machine2</div>
+                <div onclick="onclick('Machine1', 'hard', '', '', '', '', '', 'author1')">Machine1</div>
+                <div onclick="onclick('Machine2', 'medium', '', '', '', '', '', 'author2')">Machine2</div>
             </body>
         </html>
     """
