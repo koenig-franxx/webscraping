@@ -16,21 +16,16 @@ def obtener_maquinas(url):
             parts = onclick_text.split("'")
             
             # Verifica que hay suficientes partes antes de acceder a índices específicos
-            if len(parts) > 7:
+            if len(parts) >= 8:
                 nombre = parts[1]
                 dificultad = parts[3]
                 autor = parts[7]
                 maquinas_info.append((nombre, dificultad, autor))
             else:
-                # Si el formato es inesperado, agrega una máquina con valores 'desconocidos' o ignora
                 print("Advertencia: formato inesperado en el atributo 'onclick'")
                 maquinas_info.append(("Desconocido", "Desconocido", "Desconocido"))
 
         return maquinas_info
     else:
         raise Exception(f"Error al realizar la petición: {respuesta.status_code}")
-
-def contar_maquinas(maquinas_info):
-    """Cuenta la cantidad de máquinas encontradas"""
-    return len(maquinas_info)
 
